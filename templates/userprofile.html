@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Profile
+{% endblock %}
+
+
+{% block content %}
+
+{% include "header.html" %}
+
+
+<div class="card" style="max-width:600px; margin:auto; margin-top:30px;">
+
+    <h1 style="text-align:center; margin-bottom:20px;">
+        My Profile
+    </h1>
+
+    <!-- STATIC USER INFO -->
+
+    <div style="margin-bottom:20px;">
+
+        <p><b>Username:</b> {{ request.user.username }}</p>
+
+        <p><b>Email:</b> {{ request.user.email }}</p>
+
+    </div>
+
+
+    <!-- FORM -->
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        <!-- MOBILE -->
+
+        <label>Mobile Number</label>
+
+        <input
+            type="text"
+            name="usermobileno"
+            value="{{ profile.usermobileno }}"
+            id="mobile"
+            disabled
+            required
+        >
+
+
+        <!-- ADDRESS -->
+
+        <label>Address</label>
+
+        <textarea
+            name="useraddress"
+            id="address"
+            disabled
+            required
+        >{{ profile.useraddress }}</textarea>
+
+
+        <!-- DOB -->
+
+        <label>Date of Birth</label>
+
+        <input
+            type="date"
+            name="userdob"
+            value="{{ profile.userdob|date:'Y-m-d' }}"
+            id="dob"
+            disabled
+            required
+        >
+
+
+        <!-- BUTTONS -->
+
+        <div style="margin-top:20px; display:flex; gap:10px;">
+
+            <button type="button" onclick="enableEdit()">
+                Edit
+            </button>
+
+            <button type="submit">
+                Save
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+<!-- JS FOR EDIT TOGGLE -->
+
+<script>
+
+function enableEdit() {
+
+    document.getElementById("mobile").disabled = false;
+
+    document.getElementById("address").disabled = false;
+
+    document.getElementById("dob").disabled = false;
+
+}
+
+</script>
+
+{% endblock %}

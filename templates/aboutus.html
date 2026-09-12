@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+
+{% block title %}
+About Us
+{% endblock %}
+
+{% block content %}
+
+{% include "header.html" %}
+
+
+<!-- HERO SECTION -->
+
+<div
+    style="
+        padding:60px 20px;
+        text-align:center;
+    "
+>
+
+    <h1
+        style="
+            font-size:50px;
+            color:white;
+            margin-bottom:20px;
+        "
+    >
+        About Real Time Auction
+    </h1>
+
+    <p
+        style="
+            max-width:900px;
+            margin:auto;
+            color:#cbd5e1;
+            font-size:18px;
+            line-height:1.8;
+        "
+    >
+        Real Time Auction is a live online bidding platform where users
+        can create auctions, participate in real-time bidding,
+        compete with other users, and win products securely.
+    </p>
+
+</div>
+
+
+<!-- TEAM SECTION -->
+
+<div
+    style="
+        padding:20px;
+        display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+        gap:25px;
+    "
+>
+
+
+    <!-- FRONTEND DEVELOPER -->
+
+    <div class="card" style="text-align:center;">
+
+        <img
+            src="/media/services/ps.jpg"
+            style="
+                width:180px;
+                height:180px;
+                object-fit:cover;
+                border-radius:50%;
+                margin-bottom:20px;
+                border:4px solid #334155;
+            "
+        >
+
+        <h2 style="color:white; margin-bottom:10px;">
+            Pranav Satale
+        </h2>
+
+        <p style="color:#38bdf8; margin-bottom:15px; font-weight:bold;">
+            Frontend Developer
+        </p>
+
+        <p style="color:#cbd5e1; line-height:1.7;">
+            Designed and developed the frontend user interface of the
+            Real Time Auction platform including responsive pages,
+            layouts, user experience, and styling.
+        </p><br>
+<p style="color:#cbd5e1; line-height:1.7;">Follow us on</p>
+        <a
+            href="https://www.instagram.com/13.panyaaa/"
+            target="_blank"
+            style="
+                display:inline-block;
+                margin-top:20px;
+                text-decoration:none;
+                color:white;
+                background:#e1306c;
+                padding:10px 20px;
+                border-radius:10px;
+            "
+        >
+            Instagram
+        </a>
+
+    </div>
+
+
+
+    <!-- BACKEND DEVELOPER -->
+
+    <div class="card" style="text-align:center;">
+
+        <img
+            src="/media/services/ad.jpg"
+            style="
+                width:180px;
+                height:180px;
+                object-fit:cover;
+                border-radius:50%;
+                margin-bottom:20px;
+                border:4px solid #334155;
+            "
+        >
+
+        <h2 style="color:white; margin-bottom:10px;">
+            Aaditya Kalgaonkar
+        </h2>
+
+        <p style="color:#38bdf8; margin-bottom:15px; font-weight:bold;">
+            Backend & Database Developer
+        </p>
+
+        <p style="color:#cbd5e1; line-height:1.7;">
+            Developed the backend architecture including database management,
+            Django backend logic, WebSockets, Django Channels,
+            real-time bidding system, auction timer, and live communication.
+        </p><br>
+<p style="color:#cbd5e1; line-height:1.7;">Follow us on</p>
+        <a
+            href="https://www.instagram.com/aaditya_kalgaonkar/"
+            target="_blank"
+            style="
+                display:inline-block;
+                margin-top:20px;
+                text-decoration:none;
+                color:white;
+                background:#e1306c;
+                padding:10px 20px;
+                border-radius:10px;
+            "
+        >
+            Instagram
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- FOOTER -->
+
+<div
+    style="
+        text-align:center;
+        padding:30px;
+        color:#94a3b8;
+    "
+>
+
+    © 2026 Real Time Auction. All Rights Reserved.
+
+</div>
+
+{% endblock %}

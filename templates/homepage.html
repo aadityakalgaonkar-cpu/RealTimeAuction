@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Home Page
+{% endblock %}
+
+
+{% block content %}
+
+{% include "header.html" %}
+
+<div class="card">
+
+    <h1 style="margin-bottom:10px;">
+
+        Welcome,
+        {{ request.user.username }}
+
+    </h1>
+
+    <p style="color:#cbd5e1; font-size:17px;">
+
+        Welcome to Real Time Auction Platform
+
+    </p>
+
+</div>
+
+
+<div
+    style="
+        display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+        gap:20px;
+        margin-top:30px;
+    "
+>
+
+    <!-- Live Auction -->
+
+    <a href="/liveauction/">
+    <div class="card">
+
+        <h2 style="margin-bottom:15px;">
+            Live Auction
+        </h2>
+
+        <p style="margin-bottom:20px; color:#cbd5e1;">
+            View all currently running auctions and place bids in real time.
+        </p>
+
+    </div>
+    </a>
+
+    <!-- Upcoming Auction -->
+
+    <a href="/upcomingauction/">
+    <div class="card">
+
+        <h2 style="margin-bottom:15px;">
+            Upcoming Auction
+        </h2>
+
+        <p style="margin-bottom:20px; color:#cbd5e1;">
+            Check upcoming auctions scheduled by vendors.
+        </p>
+
+    </div>
+    </a>
+
+    <!-- Auction Form -->
+
+    <a href="/auctionform/">
+    <div class="card">
+
+        <h2 style="margin-bottom:15px;">
+            Auction Form
+        </h2>
+
+        <p style="margin-bottom:20px; color:#cbd5e1;">
+            List your item or asset for auction.
+        </p>
+
+    </div>
+    </a>
+
+    <!-- History -->
+
+    <a href="/history/">
+    <div class="card">
+
+        <h2 style="margin-bottom:15px;">
+            History
+        </h2>
+
+        <p style="margin-bottom:20px; color:#cbd5e1;">
+            View all auctions you participated in previously.
+        </p>
+
+    </div>
+    </a>
+
+    <!-- My Auctions -->
+
+    <a href="/myauctions/">
+    <div class="card">
+
+        <h2 style="margin-bottom:15px;">
+            My Auctions
+        </h2>
+
+        <p style="margin-bottom:20px; color:#cbd5e1;">
+            Manage all auctions created by you.
+        </p>
+
+    </div>
+    </a>
+     <!-- All Auctions -->
+    {% if request.user.username == 'aaditya' or request.user.username == 'Pranav Satale' %}
+     <a href="/allauctionspage/">
+        <div class="card">
+
+        <h2 style="margin-bottom:15px;">
+            All Auctions
+        </h2>
+
+        <p style="margin-bottom:20px; color:#cbd5e1;">
+            All the listed auctions 
+        </p>
+    {% endif %}    
+    </div>
+    </a>
+
+</div>
+
+{% endblock %}

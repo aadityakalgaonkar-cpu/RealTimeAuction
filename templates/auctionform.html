@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Auction Form
+{% endblock %}
+
+
+{% block content %}
+
+{% include "header.html" %}
+
+
+<div
+    class="card"
+    style="
+        max-width:800px;
+        margin:auto;
+        margin-top:30px;
+    "
+>
+
+    <h1
+        style="
+            text-align:center;
+            margin-bottom:30px;
+        "
+    >
+
+        Create Auction
+
+    </h1>
+
+
+    <form
+        method="POST"
+        enctype="multipart/form-data"
+    >
+
+        {% csrf_token %}
+
+
+        <!-- ROW 1 -->
+
+        <div
+            style="
+                display:flex;
+                gap:20px;
+                margin-bottom:20px;
+            "
+        >
+
+            <div style="flex:1;">
+
+                <label>Item Name</label>
+
+                <input
+                    type="text"
+                    name="itemname"
+                    placeholder="Enter item name"
+                    required
+                >
+
+            </div>
+
+
+            <div style="flex:1;">
+
+                <label>Category</label>
+
+                <select
+                    name="itemcat"
+                    required
+                >
+
+                    <option value="">
+                        Select Category
+                    </option>
+
+                    <option value="Electronics">
+                        Electronics
+                    </option>
+
+                    <option value="Vehicles">
+                        Vehicles
+                    </option>
+
+                    <option value="Furniture">
+                        Furniture
+                    </option>
+
+                    <option value="Fashion">
+                        Fashion
+                    </option>
+
+                    <option value="Property">
+                        Property
+                    </option>
+
+                    <option value="Others">
+                        Others
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ROW 2 -->
+
+        <div
+            style="
+                display:flex;
+                gap:20px;
+                margin-bottom:20px;
+            "
+        >
+
+            <div style="flex:1;">
+
+                <label>Base Price</label>
+
+                <input
+                    type="number"
+                    name="itembaseprice"
+                    placeholder="Enter base price"
+                    required
+                >
+
+            </div>
+
+
+            <div style="flex:1;">
+
+                <label>Item Picture</label>
+
+                <input
+                    type="file"
+                    name="itempicture"
+                    required
+                >
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ROW 3 -->
+
+        <div
+            style="
+                display:flex;
+                gap:20px;
+                margin-bottom:20px;
+            "
+        >
+
+            <div style="flex:1;">
+
+                <label>Auction Date</label>
+
+                <input
+                    type="date"
+                    name="itemdatetoauction"
+                    required
+                >
+
+            </div>
+
+
+            <div style="flex:1;">
+
+                <label>Auction Time</label>
+
+                <input
+                    type="time"
+                    name="itemtimetoauction"
+                    required
+                >
+
+            </div>
+
+        </div>
+
+
+
+        <!-- DESCRIPTION -->
+
+        <label>Description</label>
+
+        <textarea
+            name="itemdescription"
+            rows="5"
+            placeholder="Enter item description"
+            required
+        ></textarea>
+
+
+
+        <!-- SUBMIT -->
+
+        <button
+            type="submit"
+            style="
+                width:100%;
+                margin-top:20px;
+            "
+        >
+
+            Create Auction
+
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

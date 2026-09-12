@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Register
+{% endblock %}
+
+
+{% block content %}
+
+<h1 style="text-align:center; margin-bottom:25px;">
+        Real Time Auction.com
+</h1> 
+
+<div class="card" style="max-width:450px; margin:auto; margin-top:60px;">
+
+    <h1 style="text-align:center; margin-bottom:25px;">
+        Registration
+    </h1>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <label>Username</label>
+
+        <input 
+            type="text" 
+            name="username" 
+            placeholder="Enter username"
+            required
+        >
+        
+        <label>Email</label>
+
+        <input 
+            type="email" 
+            name="email" 
+            placeholder="Enter email"
+            required
+        >
+
+
+        <label>Password</label>
+
+        <input 
+            type="password" 
+            name="password" 
+            placeholder="Enter password"
+            required
+        >
+
+
+        <button type="submit" style="width:100%;">
+            Register
+        </button>
+
+    </form>
+<br><br>
+    {% if username_error %}
+
+        <p style="color:red; margin-top:-10px; margin-bottom:15px;">
+
+        {{ username_error }}
+
+        </p>
+
+    {% endif %}
+
+    <p style="margin-top:20px; text-align:center;">
+
+        Already have an account ?
+
+        <a href="/login/">
+            Login
+        </a>
+
+    </p>
+
+</div>
+
+{% endblock %}

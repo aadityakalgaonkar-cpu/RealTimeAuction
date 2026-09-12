@@ -1,0 +1,296 @@
+<header>
+
+    <style>
+
+        body{
+            margin:0;
+            padding-top:90px;
+            background-color:#0f172a;
+            font-family:Arial, sans-serif;
+        }
+
+        .navbar{
+
+            width:100%;
+
+            background-color:#1e293b;
+
+            padding:15px 40px;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            position:fixed;
+
+            top:0;
+
+            left:0;
+
+            z-index:1000;
+
+            box-sizing:border-box;
+
+            box-shadow:0px 2px 10px rgba(0,0,0,0.4);
+        }
+
+        .logo{
+
+            font-size:24px;
+
+            font-weight:bold;
+
+            color:#f59e0b;
+        }
+
+        .right-navbar{
+
+            display:flex;
+
+            align-items:center;
+
+            gap:20px;
+        }
+
+        .datetime-box{
+
+            background-color:#334155;
+
+            color:white;
+
+            padding:10px 15px;
+
+            border-radius:8px;
+
+            font-size:14px;
+        }
+
+        .profile-container{
+
+            position:relative;
+        }
+
+        .profile-btn{
+
+            background-color:#334155;
+
+            color:white;
+
+            border:none;
+
+            padding:10px 16px;
+
+            border-radius:6px;
+
+            cursor:pointer;
+
+            font-size:15px;
+
+            transition:0.3s;
+        }
+
+        .profile-btn:hover{
+
+            background-color:#475569;
+        }
+
+        .dropdown{
+
+            position:absolute;
+
+            top:50px;
+
+            right:0;
+
+            background-color:#334155;
+
+            width:160px;
+
+            border-radius:8px;
+
+            overflow:hidden;
+
+            display:none;
+
+            box-shadow:0px 4px 10px rgba(0,0,0,0.4);
+        }
+
+        .dropdown a{
+
+            display:block;
+
+            padding:12px;
+
+            color:white;
+
+            text-decoration:none;
+
+            transition:0.3s;
+        }
+
+        .dropdown a:hover{
+
+            background-color:#475569;
+        }
+
+    </style>
+
+
+
+    <nav class="navbar">
+
+
+        <!-- LEFT -->
+
+        <div class="logo">
+
+            Real Time Auction
+
+        </div>
+
+
+
+        <!-- RIGHT -->
+
+        <div class="right-navbar">
+
+
+            {% if request.user.is_authenticated %}
+
+            <!-- PROFILE -->
+
+            <div class="profile-container">
+
+                <button
+                    class="profile-btn"
+                    onclick="toggleDropdown()"
+                >
+
+                    {{ request.user.username }}
+
+                </button>
+
+
+                <div
+                    class="dropdown"
+                    id="profileDropdown"
+                >
+                    
+                    <a href="/homepage/">
+                        Home
+                    </a>
+
+                    <a href="/aboutus/">
+                        About Us
+                    </a>
+
+                    {% if request.user.username == 'aaditya' or request.user.username == 'Pranav Satale' %}
+                    
+                    <a href="/backupdatabase/">
+                    Backup Database
+                    </a>
+
+                    <a href="/backupapplication/">
+                    Backup Application
+                    </a>
+                    
+                    {% endif %}
+
+                    <a href="/logout/">
+                        Logout
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% endif %}
+
+
+            <!-- DATE TIME -->
+
+            <div class="datetime-box">
+
+                <span id="datetime"></span>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <script>
+
+        // profile dropdown
+
+        function toggleDropdown(){
+
+            let dropdown =
+            document.getElementById(
+                "profileDropdown"
+            );
+
+            if(dropdown.style.display === "block"){
+
+                dropdown.style.display = "none";
+
+            }
+
+            else{
+
+                dropdown.style.display = "block";
+
+            }
+
+        }
+
+
+        // close dropdown when clicked outside
+
+        window.onclick = function(event){
+
+            if(
+                !event.target.matches('.profile-btn')
+            ){
+
+                let dropdown =
+                document.getElementById(
+                    "profileDropdown"
+                );
+
+                if(dropdown){
+
+                    dropdown.style.display = "none";
+
+                }
+
+            }
+
+        }
+
+
+        // live date and time
+
+        function updateDateTime(){
+
+            let now = new Date();
+
+            let datetime =
+            now.toLocaleString();
+
+            document.getElementById(
+                "datetime"
+            ).innerHTML = datetime;
+        }
+
+        updateDateTime();
+
+        setInterval(updateDateTime,1000);
+
+    </script>
+
+</header>

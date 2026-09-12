@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% block title %}
+History
+{% endblock %}
+
+{% block content %}
+
+{% include "header.html" %}
+
+<div style="padding:20px;">
+
+    <h1 style="color:white; margin-bottom:30px;">
+        Auction History
+    </h1>
+
+    <div
+    style="
+        display:flex;
+        justify-content:flex-end;
+        margin-bottom:20px;
+    "
+>
+
+    <form method="GET">
+
+        <select
+            name="sort"
+            onchange="this.form.submit()"
+            style="
+                padding:10px;
+                border-radius:8px;
+                background:#1e293b;
+                color:white;
+                border:none;
+            "
+        >
+
+            <option value="new"
+                {% if request.GET.sort != "old" %}
+                    selected
+                {% endif %}
+            >
+                Latest First
+            </option>
+
+            <option value="old"
+                {% if request.GET.sort == "old" %}
+                    selected
+                {% endif %}
+            >
+                Oldest First
+            </option>
+
+        </select>
+
+    </form>
+
+</div>
+
+    <div
+        style="
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+            gap:20px;
+        "
+    >
+
+        {% for i in history %}
+
+        <div class="card">
+
+            <img
+                src="/media/{{ i.auctionid.itempicture }}"
+                style="
+                    width:100%;
+                    height:220px;
+                    object-fit:cover;
+                    border-radius:10px;
+                    margin-bottom:15px;
+                "
+            >
+
+            <h2 style="color:white;">
+                {{ i.auctionid.itemname }}
+            </h2>
+
+            <p style="color:#cbd5e1;">
+                <b>Category:</b>
+                {{ i.auctionid.itemcat }}
+            </p>
+
+            <p style="color:#cbd5e1;">
+                <b>Base Price:</b>
+                ₹{{ i.auctionid.itembaseprice }}
+            </p>
+
+            <p style="color:#cbd5e1;">
+                <b>Description:</b>
+                {{ i.auctionid.itemdescription }}
+            </p>
+
+            <p style="color:#cbd5e1;">
+                <b>Owner:</b>
+                {{ i.auctionid.owner.username }}
+            </p>
+
+            <p style="color:#cbd5e1;">
+                <b>Auction Date:</b>
+                {{ i.auctionid.itemdatetoauction }}
+            </p>
+
+            <p style="color:#cbd5e1;">
+                <b>Auction Time:</b>
+                {{ i.auctionid.itemtimetoauction }}
+            </p>
+
+            <p style="color:#cbd5e1;">
+                <b>Participated On:</b>
+                {{ i.bidtime }}
+            </p>
+
+        </div>
+
+        {% empty %}
+
+        <div class="card">
+
+            <h2 style="color:white;">
+                No Auction History Found
+            </h2>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+            Auction Website
+        {% endblock %}
+    </title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            background-color:#0f172a;
+            color:#f8fafc;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        .main-container{
+            width:90%;
+            margin:auto;
+            padding:20px;
+        }
+
+        .card{
+            background-color:#1e293b;
+            padding:20px;
+            border-radius:10px;
+            margin-top:20px;
+        }
+
+        button{
+            background-color:#f59e0b;
+            color:white;
+            border:none;
+            padding:10px 15px;
+            border-radius:5px;
+            cursor:pointer;
+            font-size:15px;
+        }
+
+        button:hover{
+            background-color:#d97706;
+        }
+
+        input,
+        textarea,
+        select{
+            width:100%;
+            padding:10px;
+            margin-top:8px;
+            margin-bottom:15px;
+            border:none;
+            border-radius:5px;
+            outline:none;
+            background-color:#334155;
+            color:white;
+        }
+
+        label{
+            font-size:15px;
+            color:#cbd5e1;
+        }
+
+        a{
+            text-decoration:none;
+            color:#f59e0b;
+        }
+
+        a:hover{
+            color:#d97706;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="main-container">
+
+        {% block content %}
+
+        {% endblock %}
+
+    </div>
+
+</body>
+</html>

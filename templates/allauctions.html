@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+
+{% block title %}
+All Auctions
+{% endblock %}
+
+{% block content %}
+
+{% include "header.html" %}
+
+<div
+    style="
+        padding:20px;
+    "
+>
+
+    <h1
+        style="
+            color:white;
+            margin-bottom:30px;
+        "
+    >
+
+        All Auctions
+
+    </h1>
+
+    <div
+        style="
+            display:grid;
+            grid-template-columns:
+            repeat(auto-fit,minmax(300px,1fr));
+
+            gap:25px;
+        "
+    >
+
+        {% for i in allauctions %}
+
+        <div
+            class="card"
+            style="
+                padding:20px;
+            "
+        >
+
+            <!-- IMAGE -->
+
+            <img
+                src="/media/{{ i.itempicture }}"
+                width="100%"
+                height="220px"
+
+                style="
+                    object-fit:cover;
+                    border-radius:10px;
+                    margin-bottom:15px;
+                "
+            >
+
+            <!-- TITLE -->
+
+            <h2
+                style="
+                    color:white;
+                    margin-bottom:10px;
+                "
+            >
+
+                {{ i.itemname }}
+
+            </h2>
+
+            <!-- CATEGORY -->
+
+            <p
+                style="
+                    color:#cbd5e1;
+                    margin-bottom:8px;
+                "
+            >
+
+                <b>Category:</b>
+                {{ i.itemcat }}
+
+            </p>
+
+            <!-- BASE PRICE -->
+
+            <p
+                style="
+                    color:#cbd5e1;
+                    margin-bottom:8px;
+                "
+            >
+
+                <b>Base Price:</b>
+
+                ₹ {{ i.itembaseprice }}
+
+            </p>
+
+            <!-- DATE -->
+
+            <p
+                style="
+                    color:#cbd5e1;
+                    margin-bottom:8px;
+                "
+            >
+
+                <b>Date:</b>
+
+                {{ i.itemdatetoauction }}
+
+            </p>
+
+            <!-- TIME -->
+
+            <p
+                style="
+                    color:#cbd5e1;
+                    margin-bottom:15px;
+                "
+            >
+
+                <b>Time:</b>
+
+                {{ i.itemtimetoauction }}
+
+            </p>
+
+            <!-- OWNER -->
+
+            <p style="color:#cbd5e1; margin-bottom:8px;">
+
+                <b>Seller:</b>
+                {{ i.owner.username }}
+
+            </p>
+
+            <!-- STATUS -->
+
+            <p style="color:#cbd5e1;">
+
+                <b>Status:</b>
+
+                {% if i.isactive %}
+                    <span style="color:lime;">Active</span>
+                {% else %}
+                    <span style="color:red;">Ended</span>
+                {% endif %}
+
+            </p>
+
+        </div>
+
+        {% empty %}
+
+        <div
+            class="card"
+            style="
+                text-align:center;
+                padding:40px;
+            "
+        >
+
+            <h2 style="color:white;">
+
+                No Auctions Available
+
+            </h2>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

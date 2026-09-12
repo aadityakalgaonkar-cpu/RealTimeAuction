@@ -1,0 +1,286 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Auction Room
+{% endblock %}
+
+{% block content %}
+
+{% include "header.html" %}
+
+{{ id|json_script:"groupname" }}
+
+<div
+    class="card"
+    style="
+        max-width:800px;
+        margin:auto;
+        margin-top:30px;
+        padding:20px;
+    "
+>
+
+    <!-- ITEM TITLE -->
+
+    <h1
+        style="
+            color:white;
+            margin-bottom:15px;
+        "
+    >
+        {{ data.itemname }}
+    </h1>
+
+
+
+    <!-- IMAGE -->
+
+    <img
+        src="/media/{{ data.itempicture }}"
+        style="
+            width:100%;
+            height:350px;
+            object-fit:cover;
+            border-radius:10px;
+            margin-bottom:20px;
+        "
+    >
+
+
+
+    <!-- DETAILS -->
+
+    <p style="color:#cbd5e1; margin-bottom:8px;">
+        <b>Category:</b>
+        {{ data.itemcat }}
+    </p>
+
+    <p style="color:#cbd5e1; margin-bottom:8px;">
+        <b>Base Price:</b>
+        ₹{{ data.itembaseprice }}
+    </p>
+
+    <p style="color:#cbd5e1; margin-bottom:8px;">
+        <b>Description:</b>
+        {{ data.itemdescription }}
+    </p>
+
+    <p style="color:#cbd5e1; margin-bottom:20px;">
+        <b>Seller:</b>
+        {{ data.owner.username }}
+    </p>
+
+
+    <hr style="margin-bottom:20px;">
+
+
+    <!-- LIVE AUCTION INFO -->
+
+    <h2
+        style="
+            color:#22c55e;
+            margin-bottom:15px;
+        "
+    >
+        Highest Bid:
+        ₹<span id="bid">0</span>
+    </h2>
+
+
+    <h3
+        style="
+            color:#38bdf8;
+            margin-bottom:15px;
+        "
+    >
+        Highest Bidder:
+        <span id="user">None</span>
+    </h3>
+
+
+    <h3
+        style="
+            color:orange;
+            margin-bottom:20px;
+        "
+    >
+        Time Left:
+        <span id="timer">30</span> sec
+    </h3>
+
+
+
+    <!-- STATUS -->
+
+    <p
+        id="status"
+        style="
+            color:lime;
+            margin-bottom:20px;
+            font-weight:bold;
+        "
+    >
+        🔥 Live Auction Running
+    </p>
+
+
+
+    <!-- BID INPUT -->
+
+    <div
+        style="
+            display:flex;
+            gap:10px;
+        "
+    >
+
+        <input
+            type="number"
+            id="bidInput"
+            placeholder="Enter your bid"
+            style="
+                flex:1;
+                padding:12px;
+                border-radius:8px;
+                border:none;
+                outline:none;
+            "
+        >
+
+        <button
+            id="bidBtn"
+            onclick="sendBid()"
+            style="
+                padding:12px 25px;
+                border:none;
+                border-radius:8px;
+                background:#4f46e5;
+                color:white;
+                font-weight:bold;
+                cursor:pointer;
+            "
+        >
+            Place Bid
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+    // GET AUCTION ID
+    const auctionId =
+        JSON.parse(
+            document.getElementById("groupname").textContent
+        );
+
+    // WEBSOCKET CONNECTION
+    const wsScheme =
+        window.location.protocol === "https:"
+        ? "wss"
+        : "ws";
+
+    const socket =
+        new WebSocket(
+            wsScheme +
+            "://" +
+            window.location.host +
+            "/ws/aswc/" +
+            auctionId +
+            "/"
+        );
+
+
+    
+
+    // RECEIVE DATA
+    socket.onmessage = function(e) {
+
+        let data = JSON.parse(e.data);
+
+        console.log(data);
+
+        // LIVE UPDATE
+        if (data.type === "update") {
+
+            document.getElementById("bid").innerText =
+                data.bid;
+
+            document.getElementById("user").innerText =
+                data.user || "None";
+
+            document.getElementById("timer").innerText =
+                data.timer;
+
+            document.getElementById("status").innerText =
+                data.timer > 0
+                ? "🔥 Live Auction Running"
+                : "🏁 Auction Ended";
+        }
+
+
+        // AUCTION END
+        if (data.type === "end") {
+
+            document.getElementById("status").innerText =
+                "🏁 Auction Ended";
+
+            document.getElementById("user").innerText =
+                "Winner: " + (data.winner || "None");
+
+            document.getElementById("bid").innerText =
+                data.bid;
+
+            // DISABLE INPUT
+            document.getElementById("bidInput").disabled = true;
+
+            document.getElementById("bidBtn").disabled = true;
+        }
+
+
+        // ERROR
+        if (data.type === "error") {
+
+            alert(data.message);
+        }
+
+    };
+
+
+
+    // SEND BID
+    function sendBid() {
+
+        let input =
+            document.getElementById("bidInput");
+
+        let value =
+            input.value.trim();
+
+        if (!value) {
+            return;
+        }
+
+        let bid =
+            parseInt(value);
+
+        if (bid <= 0) {
+            return;
+        }
+
+        socket.send(
+            JSON.stringify({
+                bid: bid
+            })
+        );
+
+        input.value = "";
+
+    }
+
+</script>
+
+{% endblock %}
